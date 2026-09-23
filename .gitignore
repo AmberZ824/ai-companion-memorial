@@ -1,0 +1,11 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+*.log
+node_modules/
+.sites-runtime/
+.openai/hosting.json
+coverage/
+dist/
+tmp/
