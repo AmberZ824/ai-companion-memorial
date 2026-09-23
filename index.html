@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Create a private virtual companion profile from photos, personality, and real memories." />
+  <meta name="theme-color" content="#07111f" />
+  <title>AI 虚拟陪伴数字纪念网站</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%2307111f'/%3E%3Cpath d='M18 34c0-9 6-16 14-16s14 7 14 16c0 8-6 14-14 14S18 42 18 34Z' fill='%23f4b35f'/%3E%3Cpath d='M25 23l-5-7 2 12m17-5 5-7-2 12' stroke='%23f4b35f' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='27' cy='34' r='2' fill='%2307111f'/%3E%3Ccircle cx='37' cy='34' r='2' fill='%2307111f'/%3E%3Cpath d='M29 40c2 2 4 2 6 0' stroke='%2307111f' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="aurora aurora-one"></div>
+  <div class="aurora aurora-two"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="AI 虚拟陪伴数字纪念网站首页" data-i18n-aria="brandAria">
+      <span class="brand-mark" aria-hidden="true">AI</span>
+      <span data-i18n="brand">AI 虚拟陪伴数字纪念网站</span>
+    </a>
+    <div class="topbar-actions">
+      <button class="language-toggle" type="button" aria-label="Switch to English">EN</button>
+      <div class="privacy-pill"><span aria-hidden="true">◌</span> <span data-i18n="localOnly">资料仅保存在此设备</span></div>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <section class="creator-panel" aria-labelledby="creator-title">
+      <div class="eyebrow" data-i18n="createProfile">创建陪伴档案</div>
+      <h1 id="creator-title" data-i18n="heroTitle">把想念，轻轻放在这里</h1>
+      <p class="intro" data-i18n="heroIntro">上传一张照片，告诉我们你记得的样子。这个版本不会把资料发送到服务器。</p>
+
+      <form id="companion-form" novalidate>
+        <div class="step-block">
+          <div class="step-heading"><span>01</span><h2 data-i18n="who">TA 是谁？</h2></div>
+          <div class="type-toggle" role="radiogroup" aria-label="对象类型" data-i18n-aria="kindAria">
+            <label class="type-option active"><input type="radio" name="kind" value="person" checked /> <span data-i18n="person">一个人</span></label>
+            <label class="type-option"><input type="radio" name="kind" value="pet" /> <span data-i18n="pet">一只动物</span></label>
+          </div>
+          <label class="upload-zone" id="upload-zone" for="photo-input">
+            <input id="photo-input" name="photo" type="file" accept="image/jpeg,image/png,image/webp" />
+            <span class="upload-icon" aria-hidden="true">＋</span>
+            <strong data-i18n="choosePhoto">选择一张最熟悉的照片</strong>
+            <small data-i18n="photoHint">JPG、PNG 或 WebP，最大 10MB</small>
+          </label>
+          <div class="field-grid two-cols">
+            <label><span data-i18n="nameLabel">TA 的名字</span><input id="name-input" name="name" maxlength="24" placeholder="例如：小雨 / 奶糖" data-i18n-placeholder="namePlaceholder" required /></label>
+            <label><span id="relation-label" data-i18n="relationLabel">你们的关系</span><input id="relation-input" name="relation" maxlength="30" placeholder="例如：外婆 / 最好的朋友" data-i18n-placeholder="relationPersonPlaceholder" required /></label>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-heading"><span>02</span><h2 data-i18n="remembered">你记得的 TA</h2></div>
+          <fieldset>
+            <legend data-i18n="traitsLegend">选择最贴近的性格</legend>
+            <div class="trait-list" id="trait-list">
+              <label><input type="checkbox" name="traits" value="温柔" /><span data-i18n="traitGentle">温柔</span></label>
+              <label><input type="checkbox" name="traits" value="爱笑" /><span data-i18n="traitCheerful">爱笑</span></label>
+              <label><input type="checkbox" name="traits" value="安静" /><span data-i18n="traitQuiet">安静</span></label>
+              <label><input type="checkbox" name="traits" value="幽默" /><span data-i18n="traitHumorous">幽默</span></label>
+              <label><input type="checkbox" name="traits" value="有点嘴硬" /><span data-i18n="traitReserved">有点嘴硬</span></label>
+            </div>
+          </fieldset>
+          <label><span data-i18n="expressionLabel">TA 说话或表达的方式</span><input id="voice-input" name="voiceStyle" maxlength="80" placeholder="例如：总是先问我有没有好好吃饭" data-i18n-placeholder="expressionPersonPlaceholder" /></label>
+          <label><span data-i18n="memoryLabel">一段你想保存的回忆</span><textarea id="memory-input" name="memory" rows="4" maxlength="600" placeholder="写下一件真实发生过的小事。陪伴对话会以这段资料为边界，不替你编造新的回忆。" data-i18n-placeholder="memoryPlaceholder" required></textarea><small class="counter"><span id="memory-count">0</span>/600</small></label>
+        </div>
+
+        <div class="step-block consent-block">
+          <div class="step-heading"><span>03</span><h2 data-i18n="confirmCreate">确认与创建</h2></div>
+          <label class="consent-row"><input id="consent-input" type="checkbox" required /><span data-i18n="consent">我确认有权使用这些照片和资料，并理解生成的角色是基于资料创作的 AI 形象，不是真实的人或动物。</span></label>
+          <p id="form-error" class="form-error" role="alert" aria-live="polite"></p>
+          <button class="primary-button" type="submit"><span data-i18n="createButton">创建陪伴档案</span> <span aria-hidden="true">→</span></button>
+        </div>
+      </form>
+    </section>
+
+    <aside class="preview-panel" aria-label="陪伴档案预览" data-i18n-aria="previewAria">
+      <div class="preview-card" id="preview-card">
+        <div class="portrait-wrap">
+          <img id="portrait-preview" src="./assets/sample-companion.jpg" alt="原创示例陪伴形象" data-i18n-alt="sampleAlt" />
+          <div class="portrait-shade"></div>
+          <span class="mode-badge" id="kind-badge">人物档案</span>
+        </div>
+        <div class="card-content">
+          <p class="card-kicker" data-i18n="creating">正在创建</p>
+          <h2 id="preview-name">还没有名字</h2>
+          <p id="preview-relation">填入资料后，这里会慢慢变成你熟悉的样子。</p>
+          <div class="preview-traits" id="preview-traits"><span>等待你的描述</span></div>
+          <blockquote id="preview-memory">“真正重要的回忆，不需要被重新编写。”</blockquote>
+        </div>
+      </div>
+      <div class="trust-note">
+        <span class="trust-icon" aria-hidden="true">◇</span>
+        <div><strong data-i18n="trustTitle">这是纪念与陪伴，不是复刻生命</strong><p data-i18n="trustText">系统会始终明确告知：所有回应来自 AI，并可能与真实对象不同。</p></div>
+      </div>
+    </aside>
+  </main>
+
+  <section class="companion-room" id="companion-room" hidden aria-labelledby="room-title">
+    <div class="room-header">
+      <button class="text-button" id="back-button" type="button">← <span data-i18n="editProfile">修改档案</span></button>
+      <div class="room-actions"><button class="language-toggle" type="button" aria-label="Switch to English">EN</button><span class="ai-label" data-i18n="aiExperience">AI 陪伴体验</span></div>
+    </div>
+    <div class="room-profile">
+      <img id="room-avatar" src="./assets/sample-companion.jpg" alt="陪伴对象头像" data-i18n-alt="avatarAlt" />
+      <div><p class="eyebrow" data-i18n="companionSpace">陪伴空间</p><h1 id="room-title">和 TA 说说话</h1><p id="room-description">回应只基于你保存的资料，不代表真实对象。</p></div>
+    </div>
+    <div class="chat-window" id="chat-window" aria-live="polite"></div>
+    <form class="chat-form" id="chat-form">
+      <label class="sr-only" for="chat-input" data-i18n="chatLabel">想说的话</label>
+      <input id="chat-input" maxlength="300" placeholder="写下你此刻想说的话…" data-i18n-placeholder="chatPlaceholder" autocomplete="off" />
+      <button type="submit" aria-label="发送" data-i18n-aria="send"><span data-i18n="send">发送</span></button>
+    </form>
+    <p class="chat-disclaimer" data-i18n="chatDisclaimer">体验模式：目前使用安全的本地回应逻辑，不会联网，也不会假装拥有真实记忆。</p>
+  </section>
+
+  <script src="./app.js"></script>
+</body>
+</html>
